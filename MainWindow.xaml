@@ -121,11 +121,13 @@
 
         <Grid Grid.Row="1" ShowGridLines="True">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="1" FontWeight="Bold" FontSize="9">Status</Label>
+            <ProgressBar Grid.Column="1" Margin="4" Value="60" />
+            <Label Grid.Column="2" FontWeight="Bold" FontSize="9">Status</Label>
         </Grid>
 
     </Grid>
