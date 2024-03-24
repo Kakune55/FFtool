@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FFtool"
         mc:Ignorable="d"
         Title="FFGui-Dev" Height="300" Width="500">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="20"/>
@@ -14,119 +14,192 @@
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" ShowGridLines="True">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <Label>Select File</Label>
-                <Button Grid.Column="0" Height="30" Margin="5">Input</Button>
-                <Button Grid.Column="0" Height="30" Margin="5">Output</Button>
+                <Button x:Name="InputFileButton" Grid.Column="0" Height="30" Margin="5" Click="InputFileButton_Click">Input</Button>
+                <Button x:Name="OutputFileButton" Grid.Column="0" Height="30" Margin="5" Click="OutputFileButton1_Click">Output</Button>
                 <Label>Job</Label>
-                <Button Grid.Column="0" Height="30" Margin="5">Create</Button>
-                <Button Grid.Column="0" Height="30" Margin="5">Exit</Button>
+                <Button x:Name="CreateButton" Grid.Column="0" Height="30" Margin="5" Click="CreateButton_Click">Create</Button>
+                <Button x:Name="ExitButton" Grid.Column="0" Height="30" Margin="5">Exit</Button>
             </StackPanel>
+            <TabControl x:Name="MainTab" Grid.Column="1">
+                <TabItem Header="视频">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
-            <Grid Grid.Column="1" ShowGridLines="False">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+                        <Label>视频编码</Label>
+                        <ComboBox Margin="5" Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem>Copy</ComboBoxItem>
+                            <ComboBoxItem>H265/HEVC</ComboBoxItem>
+                            <ComboBoxItem>H264</ComboBoxItem>
+                        </ComboBox>
 
-                <Label>视频编码</Label>
-                <ComboBox Margin="5" Grid.Column="1" SelectedIndex="0">
-                    <ComboBoxItem>Copy</ComboBoxItem>
-                    <ComboBoxItem>H265/HEVC</ComboBoxItem>
-                    <ComboBoxItem>H264/</ComboBoxItem>
-                </ComboBox>
+                        <Label Grid.Row="1">帧率</Label>
+                        <ComboBox Margin="5" Grid.Column="1" Grid.Row="1" IsEditable="True" SelectedIndex="0">
+                            <ComboBoxItem>默认</ComboBoxItem>
+                            <ComboBoxItem>360</ComboBoxItem>
+                            <ComboBoxItem>240</ComboBoxItem>
+                            <ComboBoxItem>144</ComboBoxItem>
+                            <ComboBoxItem>120</ComboBoxItem>
+                            <ComboBoxItem>90</ComboBoxItem>
+                            <ComboBoxItem>60</ComboBoxItem>
+                            <ComboBoxItem>30</ComboBoxItem>
+                            <ComboBoxItem>24</ComboBoxItem>
+                        </ComboBox>
 
-                <Label Grid.Row="1">帧率</Label>
-                <ComboBox Margin="5" Grid.Column="1" Grid.Row="1" IsEditable="True" SelectedIndex="0">
-                    <ComboBoxItem>默认</ComboBoxItem>
-                    <ComboBoxItem>360</ComboBoxItem>
-                    <ComboBoxItem>240</ComboBoxItem>
-                    <ComboBoxItem>144</ComboBoxItem>
-                    <ComboBoxItem>120</ComboBoxItem>
-                    <ComboBoxItem>90</ComboBoxItem>
-                    <ComboBoxItem>60</ComboBoxItem>
-                    <ComboBoxItem>30</ComboBoxItem>
-                    <ComboBoxItem>24</ComboBoxItem>
-                </ComboBox>
+                        <Label Grid.Row="2">分辨率</Label>
+                        <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" IsEditable="True" SelectedIndex="0">
+                            <ComboBoxItem>默认</ComboBoxItem>
+                            <ComboBoxItem>320x240</ComboBoxItem>
+                            <ComboBoxItem>640x480</ComboBoxItem>
+                            <ComboBoxItem>1280×720</ComboBoxItem>
+                            <ComboBoxItem>1920x1080</ComboBoxItem>
+                            <ComboBoxItem>2560x1440</ComboBoxItem>
+                            <ComboBoxItem>4096x2160</ComboBoxItem>
+                        </ComboBox>
 
-                <Label Grid.Row="2">分辨率</Label>
-                <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" IsEditable="True" SelectedIndex="0">
-                    <ComboBoxItem>默认</ComboBoxItem>
-                    <ComboBoxItem>320x240</ComboBoxItem>
-                    <ComboBoxItem>640x480</ComboBoxItem>
-                    <ComboBoxItem>1280×720</ComboBoxItem>
-                    <ComboBoxItem>1920x1080</ComboBoxItem>
-                    <ComboBoxItem>2560x1440</ComboBoxItem>
-                    <ComboBoxItem>4096x2160</ComboBoxItem>
-                </ComboBox>
+                        <Label Grid.Row="3">码率</Label>
+                        <ComboBox Margin="5" Grid.Column="1" Grid.Row="3" IsEditable="True" SelectedIndex="0">
+                            <ComboBoxItem>默认</ComboBoxItem>
+                            <ComboBoxItem>1M</ComboBoxItem>
+                            <ComboBoxItem>2M</ComboBoxItem>
+                            <ComboBoxItem>3M</ComboBoxItem>
+                            <ComboBoxItem>5M</ComboBoxItem>
+                            <ComboBoxItem>10M</ComboBoxItem>
+                            <ComboBoxItem>15M</ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Row="5" IsEnabled="False">二次编码</Label>
+                        <CheckBox Margin="5" Grid.Column="1" Grid.Row="5" IsEnabled="False"/>
+                    </Grid>
 
-                <Label Grid.Row="3">视频/音频码率</Label>
-                <ComboBox Margin="5" Grid.Column="1" Grid.Row="3" IsEditable="True" SelectedIndex="0">
-                    <ComboBoxItem>默认</ComboBoxItem>
-                    <ComboBoxItem>1M</ComboBoxItem>
-                    <ComboBoxItem>2M</ComboBoxItem>
-                    <ComboBoxItem>3M</ComboBoxItem>
-                    <ComboBoxItem>5M</ComboBoxItem>
-                    <ComboBoxItem>10M</ComboBoxItem>
-                    <ComboBoxItem>15M</ComboBoxItem>
-                </ComboBox>
-                <ComboBox Margin="5" Grid.Column="2" Grid.Row="3" IsEditable="True" SelectedIndex="0">
-                    <ComboBoxItem>默认</ComboBoxItem>
-                    <ComboBoxItem>24k</ComboBoxItem>
-                    <ComboBoxItem>32k</ComboBoxItem>
-                    <ComboBoxItem>48k</ComboBoxItem>
-                    <ComboBoxItem>64k</ComboBoxItem>
-                    <ComboBoxItem>96k</ComboBoxItem>
-                    <ComboBoxItem>128k</ComboBoxItem>
-                    <ComboBoxItem>192k</ComboBoxItem>
-                    <ComboBoxItem>224k</ComboBoxItem>
-                    <ComboBoxItem>256k</ComboBoxItem>
-                </ComboBox>
+                </TabItem>
+                <TabItem Header="音频">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
-                <Label Grid.Row="4">音量调整</Label>
-                <ComboBox Margin="5" Grid.Column="1" Grid.Row="4" IsEditable="True" SelectedIndex="3">
-                    <ComboBoxItem>2</ComboBoxItem>
-                    <ComboBoxItem>+5dB</ComboBoxItem>
-                    <ComboBoxItem>+2dB</ComboBoxItem>
-                    <ComboBoxItem>默认</ComboBoxItem>
-                    <ComboBoxItem>-2dB</ComboBoxItem>
-                    <ComboBoxItem>-5dB</ComboBoxItem>
-                    <ComboBoxItem>0.5</ComboBoxItem>
-                    
-                </ComboBox>
+                        <Label>音频编码</Label>
+                        <ComboBox Margin="5" Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem>Copy</ComboBoxItem>
+                            <ComboBoxItem>ACC</ComboBoxItem>
+                            <ComboBoxItem>AC3</ComboBoxItem>
+                        </ComboBox>
 
-                <Label Grid.Row="5">二次编码</Label>
-                <CheckBox Margin="5" Grid.Column="1" Grid.Row="5"/>
+                        <Label Grid.Row="1">采样率(Hz)</Label>
+                        <ComboBox Margin="5" Grid.Column="1" Grid.Row="1" IsEditable="True" SelectedIndex="0">
+                            <ComboBoxItem>默认</ComboBoxItem>
+                            <ComboBoxItem>22050</ComboBoxItem>
+                            <ComboBoxItem>44100</ComboBoxItem>
+                            <ComboBoxItem>48000</ComboBoxItem>
+                            <ComboBoxItem>24000</ComboBoxItem>
+                        </ComboBox>
 
-
-            </Grid>
-
-
+                        <Label Grid.Row="2">码率</Label>
+                        <ComboBox Margin="5" Grid.Column="1" Grid.Row="2" IsEditable="True" SelectedIndex="0">
+                            <ComboBoxItem>默认</ComboBoxItem>
+                            <ComboBoxItem>24k</ComboBoxItem>
+                            <ComboBoxItem>32k</ComboBoxItem>
+                            <ComboBoxItem>48k</ComboBoxItem>
+                            <ComboBoxItem>64k</ComboBoxItem>
+                            <ComboBoxItem>96k</ComboBoxItem>
+                            <ComboBoxItem>128k</ComboBoxItem>
+                            <ComboBoxItem>192k</ComboBoxItem>
+                            <ComboBoxItem>224k</ComboBoxItem>
+                            <ComboBoxItem>256k</ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Row="3">音量调整</Label>
+                        <ComboBox Margin="5" Grid.Column="1" Grid.Row="3" IsEditable="True" SelectedIndex="3">
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>+5dB</ComboBoxItem>
+                            <ComboBoxItem>+2dB</ComboBoxItem>
+                            <ComboBoxItem>默认</ComboBoxItem>
+                            <ComboBoxItem>-2dB</ComboBoxItem>
+                            <ComboBoxItem>-5dB</ComboBoxItem>
+                            <ComboBoxItem>0.5</ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Row="4">声道</Label>
+                        <ComboBox Margin="5" Grid.Column="1" Grid.Row="4" IsEditable="True" SelectedIndex="0">
+                            <ComboBoxItem>默认</ComboBoxItem>
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Row="5">禁用音频</Label>
+                        <CheckBox Margin="5" Grid.Column="1" Grid.Row="5"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="裁剪" Height="19" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Label>时间格式</Label>
+                        <Label Grid.Column="1" HorizontalAlignment="Center">HH:MM:SS</Label>
+                        <Label Grid.Row="1">开始时间</Label>
+                        <TextBox x:Name="StartTimeText" Margin="5" Grid.Column="1" Grid.Row="1" IsEnabled="False"></TextBox>
+                        <CheckBox x:Name="StartTimeCheck" Margin="7" Grid.Column="2" Grid.Row="1" Checked="StartTimeCheck_Checked" Unchecked="StartTimeCheck_Unchecked"></CheckBox>
+                        <Label Grid.Row="2">结束时间</Label>
+                        <TextBox x:Name="EndTimeText" Margin="5" Grid.Column="1" Grid.Row="2" IsEnabled="False"></TextBox>
+                        <CheckBox x:Name="EncTimeCheck" Margin="7" Grid.Column="2" Grid.Row="2" Checked="EndTimeCheck_Checked" Unchecked="EndTimeCheck_Unchecked"></CheckBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="命令">
+                    <Grid>
+                        <TextBox IsReadOnly="True">未生成</TextBox>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            
         </Grid>
 
-        <Grid Grid.Row="1" ShowGridLines="True">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <ProgressBar Grid.Column="1" Margin="4" Value="60" />
+            <ProgressBar Grid.Column="1" Margin="4" Value="0" />
             <Label Grid.Column="2" FontWeight="Bold" FontSize="9">Status</Label>
         </Grid>
 
