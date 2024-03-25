@@ -198,9 +198,9 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-
+            <Label x:Name="timeInfo" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
             <ProgressBar x:Name="AppProgressBar" Grid.Column="1" Margin="4" Value="0" />
-            <Label x:Name="appStatus" Grid.Column="2" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Panel.ZIndex="1">就绪</Label>
+            <Label x:Name="appStatus" Grid.Column="2" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">就绪</Label>
         </Grid>
 
     </Grid>

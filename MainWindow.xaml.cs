@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,14 +57,56 @@ namespace FFtool
             }
         }
 
+        public static void RunFFmpeg(string arguments)
+        {
+            string ffmpegPath = "ffmpeg"; // 如果ffmpeg可执行文件不在系统PATH中，需要提供完整路径
+
+            // 启动FFmpeg进程
+            Process ffmpegProcess = new Process();
+            ffmpegProcess.StartInfo.FileName = ffmpegPath;
+            ffmpegProcess.StartInfo.Arguments = arguments;
+            ffmpegProcess.StartInfo.RedirectStandardOutput = true;
+            ffmpegProcess.StartInfo.RedirectStandardError = true;
+            ffmpegProcess.StartInfo.UseShellExecute = false;
+
+            // 订阅OutputDataReceived和ErrorDataReceived事件以实时捕获FFmpeg输出
+            ffmpegProcess.OutputDataReceived += (sender, e) => HandleOutputData(e.Data);
+            ffmpegProcess.ErrorDataReceived += (sender, e) => HandleOutputData(e.Data);
+
+            ffmpegProcess.Start();
+            ffmpegProcess.BeginOutputReadLine();
+            ffmpegProcess.BeginErrorReadLine();
+
+            ffmpegProcess.WaitForExit();
+
+            Console.WriteLine("FFmpeg process exited with code " + ffmpegProcess.ExitCode);
+        }
+
+        private static void HandleOutputData(string data)
+        {
+            if (data != null)
+            {
+                // 使用正则表达式从FFmpeg输出中提取进度信息
+                Match match = Regex.Match(data, @"time=(\d\d:\d\d:\d\d\.\d\d)");
+                if (match.Success)
+                {
+                    string timeString = match.Groups[1].Value;
+                    TimeSpan currentTime = TimeSpan.Parse(timeString);
+                    Console.WriteLine("Current time: " + currentTime);
+                    // 在这里可以根据需要处理进度信息，比如计算百分比并显示在UI上
+                }
+            }
+        }
+
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (inputFileName == null && outputFileName == null)
+            if (inputFileName == null || outputFileName == null)
             {
                 MessageBox.Show("未选择文件");
                 return;
             }
-            string cmd = "ffmpeg ";
+            //string cmd = "ffmpeg ";
+            string cmd = "";
             //命令拼接
             cmd += "-i " + inputFileName;
             //视频
@@ -145,8 +189,13 @@ namespace FFtool
 
             cmd += outputFileName;
             OutputCmdText.Text = cmd;
+
+            appStatus.Content = "处理中...";
+            AppProgressBar.Value = 50;
+            RunFFmpeg(cmd);
+
             MainTab.SelectedIndex = 3;
-            appStatus.Content = "已生成";
+            appStatus.Content = "已完成";
             AppProgressBar.Value = 100;
         }
         private void ExitButton_Click(object sender, RoutedEventArgs e)
